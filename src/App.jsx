@@ -1,10 +1,10 @@
-import { GetPostAPI } from "./API/getPostAPI"
+import Post from "./Component/Post"
 
 function App() {
 
   return (
     <>
-      <GetPostAPI/>
+      <Post/>
     </>
   )
 }
