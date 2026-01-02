@@ -8,6 +8,10 @@ export const getPost = () => {
     return postAPI.get('/posts')
 }
 
-export const deletePost=()=>{
-    return postAPI.delete('/posts/1')
+export const deletePost=(id)=>{
+    return postAPI.delete(`/posts/${id}`)
+}
+
+export const  createPostData=(post)=>{
+    return postAPI.post('/posts', post)
 }
