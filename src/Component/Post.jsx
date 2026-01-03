@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { deletePost, getPost } from "../API/getPostAPI";
+import { deletePost, editPost, getPost } from "../API/getPostAPI";
 import PostFormData from "./PostFormData";
 
 const Post = () => {
 
     const [postData, setPostData] = useState([])
+    const [editPostData, setEditPostData]=useState({})
 
     const fetchPostData = async () => {
         const data = await getPost()
@@ -32,13 +33,23 @@ const Post = () => {
     }
 
 
+    const handleEditBTN=(postItem)=>{
+        return setEditPostData(postItem)
+    }
+    
+
+    console.log(editPostData);
+    
+
+
+
 
 
     return (
         <section >
-            <PostFormData postData={postData} setPostData={setPostData}/>
+            <PostFormData postData={postData} setPostData={setPostData} editPostData={editPostData} setEditPostData={setEditPostData}/>
             <div className=" flex justify-center items-center">
-                <ol className="grid grid-cols-3 mt-20 gap-10" start={1}>
+                <ul className="grid grid-cols-3 mt-20 gap-10" start={1}>
                     {
                         postData.map((currPost) => {
                             return (
@@ -47,7 +58,10 @@ const Post = () => {
                                     <p className="text-xl font-semibold font-serif text-gray-800">{currPost.title}</p>
                                     <p className="text-[14px] font-semibold font-serif text-gray-700">{currPost.body}</p>
                                     <div className="flex gap-5">
-                                        <button className="p-1 md:w-[15vw] text-white font-semibold font-serif bg-green-700 rounded-[2px] cursor-pointer">Edit</button>
+                                        <button 
+                                        className="p-1 md:w-[15vw] text-white font-semibold font-serif bg-green-700 rounded-[2px] cursor-pointer"
+                                        onClick={()=>handleEditBTN(currPost)}
+                                        >Edit</button>
                                         <button
                                             className="p-1 md:w-[15vw] text-white font-semibold font-serif bg-red-700 rounded-[2px] cursor-pointer"
                                             onClick={() => handleDeleteBTN(currPost.id)}
@@ -58,7 +72,7 @@ const Post = () => {
                             )
                         })
                     }
-                </ol>
+                </ul>
             </div>
         </section>
     );
